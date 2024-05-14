@@ -34,7 +34,7 @@ df = pd.DataFrame([audio_features])
 df.to_csv(save_path, index=False)
 print("Data saved")
 
-
+'''
 **********************
 
 This part takes mean values of each column in csv file and prints it as list.
@@ -42,6 +42,7 @@ This part takes mean values of each column in csv file and prints it as list.
 To start this part, csv file must be present and It's path must be given to the code.
 
 **********************
+'''
 
 other_file_path = 'ENTER YOUR PATH HERE'
 
