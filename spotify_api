@@ -1,0 +1,32 @@
+**********************
+
+This part simply takes song information from spotify and saves it as csv file.
+I created spotify developer account to achieve this cause.
+
+I used Spotify's own playlists for each emotion:
+Sad ID                             ------> 37i9dQZF1DX7qK8ma5wgG1?si=732c63912f384b52
+Neutral (Calm) ID                  ------> 37i9dQZF1DXcy0AaElSqwE?si=74f2f25609924b65
+Happy ID                           ------> 37i9dQZF1DXdPec7aLTmlC?si=4378d8923f944bd5
+Horror (Fear, Suprise, Disgust) ID ------> 37i9dQZF1EIfgYPpPEriFK?si=357eb38ef4ca43e3
+Angry ID                           ------> 37i9dQZF1EIgNZCaOGb0Mi?si=a114713b2e734b07
+
+To start this part, client ID, client secret, track ID and save path must be given.
+
+**********************
+# Needed variables
+client_id = 'ENTER YOUR CLIENT ID'
+client_secret = 'ENTER YOUR CLIENT SECRET'
+track_id = 'ENTER THE TRACK ID'
+save_path = 'ENTER THE SAVE PATH'
+
+# Accessing spotify database
+client_credentials_manager = SpotifyClientCredentials(client_id=client_id, client_secret=client_secret)
+sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
+
+# Getting audio features of tracks
+audio_features = sp.audio_features([track_id])[0]
+
+# Saving them to the csv file
+df = pd.DataFrame([audio_features])
+df.to_csv(save_path, index=False)
+print("Data saved")
