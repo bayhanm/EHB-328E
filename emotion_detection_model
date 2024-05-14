@@ -1,0 +1,65 @@
+******* Part 1 *******
+
+This part is simply creating AI model for emotion detection.
+It uses CNN model to predict each emotion.
+It is accuracy is approximately %55-60 percent of the emotion
+
+I used FER-2013 emotion database for emotion detection AI
+Link: https://www.kaggle.com/datasets/msambare/fer2013?resource=download
+
+To start to this part, dataset must be present.
+
+**********************
+
+# Specify the path to your train and test datasets
+train_path = 'train'
+test_path = 'test'
+
+# Data preprocessing
+train_datagen = ImageDataGenerator(rescale=1 / 255)
+
+test_datagen = ImageDataGenerator(rescale=1 / 255)
+
+train_generator = train_datagen.flow_from_directory(
+    train_path,
+    target_size=(48, 48),
+    batch_size=32,
+    class_mode='categorical',
+    color_mode='grayscale',
+)
+
+test_generator = test_datagen.flow_from_directory(
+    test_path,
+    target_size=(48, 48),
+    batch_size=32,
+    class_mode='categorical',
+    color_mode='grayscale',
+)
+
+# Building the CNN model
+model = Sequential()
+model.add(Conv2D(16, (3, 3), activation='relu', input_shape=(48, 48, 1)))
+model.add(MaxPooling2D((2, 2)))
+model.add(Conv2D(32, (3, 3), activation='relu'))
+model.add(MaxPooling2D((2, 2)))
+model.add(Conv2D(64, (3, 3), activation='relu'))
+model.add(MaxPooling2D((2, 2)))
+model.add(Conv2D(128, (3, 3), activation='relu'))
+model.add(MaxPooling2D((2, 2)))
+
+model.add(Flatten())
+model.add(Dense(512, activation='relu'))
+
+model.add(Dense(7, activation='softmax'))
+
+model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+
+# Training the model
+model.fit(train_generator, epochs=7, validation_data=test_generator)
+
+# Saving the trained model
+model.save('emotion_model.h5')
+
+# testing and printing the result of the model
+test_loss, test_accuracy = model.evaluate(test_generator)
+print(f'Test Accuracy: {test_accuracy * 100:.2f}%')
