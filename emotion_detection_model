@@ -1,3 +1,4 @@
+'''
 **********************
 
 This part is simply creating AI model for emotion detection.
@@ -10,6 +11,7 @@ Link: https://www.kaggle.com/datasets/msambare/fer2013?resource=download
 To start to this part, dataset must be present.
 
 **********************
+'''
 
 # Specify the path to your train and test datasets
 train_path = 'train'
