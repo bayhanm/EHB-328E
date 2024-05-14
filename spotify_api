@@ -13,6 +13,7 @@ Angry ID                           ------> 37i9dQZF1EIgNZCaOGb0Mi?si=a114713b2e7
 To start this part, client ID, client secret, track ID and save path must be given.
 
 **********************
+
 # Needed variables
 client_id = 'ENTER YOUR CLIENT ID'
 client_secret = 'ENTER YOUR CLIENT SECRET'
@@ -30,3 +31,29 @@ audio_features = sp.audio_features([track_id])[0]
 df = pd.DataFrame([audio_features])
 df.to_csv(save_path, index=False)
 print("Data saved")
+
+
+**********************
+
+This part takes mean values of each column in csv file and prints it as list.
+
+To start this part, csv file must be present and It's path must be given to the code.
+
+**********************
+
+other_file_path = 'ENTER YOUR PATH HERE'
+
+# Reading needed csv
+df_other = pd.read_csv(other_file_path)
+
+# Selecting only first 11 column
+df_other_selected = df_other.iloc[:, :11]
+
+# Calculating each columnns mean
+means = df_other_selected.mean()
+
+# Saving it to list
+mean_values = means.tolist()
+
+# Printing to mean on screen
+print("mean_values =", mean_values)
